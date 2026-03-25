@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopOS — Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-name">ShopOS</span>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" data-section="dashboard">
+        <span class="nav-icon">▦</span> Dashboard
+      </button>
+      <button class="nav-btn" data-section="inventory">
+        <span class="nav-icon">◫</span> Inventory
+      </button>
+      <button class="nav-btn" data-section="sales">
+        <span class="nav-icon">◈</span> Sales
+      </button>
+      <button class="nav-btn" data-section="customers">
+        <span class="nav-icon">◉</span> Customers
+      </button>
+      <button class="nav-btn" data-section="suppliers">
+        <span class="nav-icon">◧</span> Suppliers
+      </button>
+      <button class="nav-btn" data-section="reports">
+        <span class="nav-icon">◪</span> Reports
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <span>System Online</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title" id="page-title">Dashboard</h1>
+        <span class="page-date" id="page-date"></span>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <input type="text" id="global-search" placeholder="Search anything..." />
+          <span class="search-icon">⌕</span>
+        </div>
+        <div class="avatar">AD</div>
+      </div>
+    </header>
+
+    <!-- DASHBOARD SECTION -->
+    <section class="section active" id="section-dashboard">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Today's Revenue</div>
+          <div class="kpi-value" id="kpi-revenue">₹0</div>
+          <div class="kpi-delta positive">+12.4% vs yesterday</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Orders Today</div>
+          <div class="kpi-value" id="kpi-orders">0</div>
+          <div class="kpi-delta positive">+3 new</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Low Stock Items</div>
+          <div class="kpi-value" id="kpi-low-stock">0</div>
+          <div class="kpi-delta negative">Needs reorder</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Total Customers</div>
+          <div class="kpi-value" id="kpi-customers">0</div>
+          <div class="kpi-delta positive">Active accounts</div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-header">
+            <span>Recent Transactions</span>
+          </div>
+          <table class="data-table" id="recent-sales-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Customer</th><th>Item</th><th>Amount</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recent-sales-body"></tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><span>Low Stock Alert</span></div>
+          <div id="low-stock-list" class="alert-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVENTORY SECTION -->
+    <section class="section" id="section-inventory">
+      <div class="section-toolbar">
+        <input type="text" class="filter-input" id="inv-search" placeholder="Filter products..." />
+        <button class="btn btn-primary" id="add-product-btn">+ Add Product</button>
+      </div>
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>SKU</th><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SALES SECTION -->
+    <section class="section" id="section-sales">
+      <div class="section-toolbar">
+        <input type="text" class="filter-input" id="sale-search" placeholder="Search sales..." />
+        <button class="btn btn-primary" id="add-sale-btn">+ New Sale</button>
+      </div>
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Sale ID</th><th>Date</th><th>Customer</th><th>Product</th><th>Qty</th><th>Total</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="sales-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CUSTOMERS SECTION -->
+    <section class="section" id="section-customers">
+      <div class="section-toolbar">
+        <input type="text" class="filter-input" id="cust-search" placeholder="Search customers..." />
+        <button class="btn btn-primary" id="add-customer-btn">+ Add Customer</button>
+      </div>
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Total Spent</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="customers-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SUPPLIERS SECTION -->
+    <section class="section" id="section-suppliers">
+      <div class="section-toolbar">
+        <input type="text" class="filter-input" id="sup-search" placeholder="Search suppliers..." />
+        <button class="btn btn-primary" id="add-supplier-btn">+ Add Supplier</button>
+      </div>
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Name</th><th>Contact</th><th>Category</th><th>Items Supplied</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="suppliers-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- REPORTS SECTION -->
+    <section class="section" id="section-reports">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-value" id="rep-revenue">₹0</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Total Sales</div>
+          <div class="kpi-value" id="rep-sales">0</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg. Order Value</div>
+          <div class="kpi-value" id="rep-avg">₹0</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Products Listed</div>
+          <div class="kpi-value" id="rep-products">0</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><span>Sales by Category</span></div>
+        <div id="category-report" class="report-bars"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 id="modal-title">Add Item</h2>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="modal-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
